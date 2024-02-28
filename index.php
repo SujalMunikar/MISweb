@@ -1,7 +1,7 @@
 <?php
-include 'config.php';
+@include 'config.php';
 $productSaved=FALSE;
-$UPLOAD = "upload_img/";
+// $UPLOAD = "upload_img/";
 
 if(isset($_POST['submit'])){
     $errors= array();
@@ -16,8 +16,8 @@ if(empty($product_Price)){
     $errors[]='please enter the product price';
 }
 
-if(!is_dir($UPLOAD)){
-    mkdir($UPLOAD,0777,TRUE);
+if(!is_dir(UPLOAD)){
+    mkdir(UPLOAD,077,TRUE);
 }
 
 $file_name= $_FILES['file']['name'];
@@ -32,8 +32,8 @@ if(in_array($file_ext,$extensions)===false){
 if(empty($errors)){
 $insert_product= mysqli_query($conn, "INSERT INTO  products(name, price, image) VALUES('$product_Name','$product_Price','$file_name')");
 
-if($insert_product==1){
-    move_uploaded_file($file_name,$UPLOAD);
+if($insert_product){
+    move_uploaded_file($file_name,UPLOAD);
     $productSaved= true;
     $message[] = 'product added successfullly';
 }else{
