@@ -1,5 +1,5 @@
 <?php
-include 'config.php';
+@include 'config.php';
 $productSaved=FALSE;
 $UPLOAD = "upload_img/";
 
@@ -32,8 +32,8 @@ if(in_array($file_ext,$extensions)===false){
 if(empty($errors)){
 $insert_product= mysqli_query($conn, "INSERT INTO  products(name, price, image) VALUES('$product_Name','$product_Price','$file_name')");
 
-if($insert_product==1){
-    move_uploaded_file($file_name,$UPLOAD);
+if($insert_product){
+    move_uploaded_file($_FILES['file']['tmp_name'], $UPLOAD . $file_name);
     $productSaved= true;
     $message[] = 'product added successfullly';
 }else{
@@ -42,7 +42,9 @@ if($insert_product==1){
 }
 }
 ?>
-
+  <?php
+   
+  ?>
 <!DOCTYPE html>
 <html>
 
